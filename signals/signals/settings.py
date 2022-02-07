@@ -147,4 +147,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 """
 This is django signals Tutorials
 
+
 """

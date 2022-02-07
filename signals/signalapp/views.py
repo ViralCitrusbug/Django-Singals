@@ -32,4 +32,4 @@ def user_login(request):
 @receiver(post_save , sender = User )
 def Prof(sender , instance , created , **kwargs):
     if created:
-        prof = Profile.objects.create(user = instance , mobile = "1234567890")
+        prof = Profile.objects.create(user = instance)

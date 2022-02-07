@@ -6,7 +6,6 @@ from django.db.models.signals import post_save , pre_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    mobile = models.CharField(max_length=12)
 
     def __str__(self) :
         return self.user.username

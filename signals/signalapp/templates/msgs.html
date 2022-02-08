@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesages</title>
+    <style>
+        .success{
+            color: green;
+        }
+        .warning{
+            color: red;
+        }
+        .info{
+            color: blue;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Hello this is messages Page</h1>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <h1><b class="{{message.tags}}">{{message}}</b></h1>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <button><a href="/">home</a></button>
+</body>
+</html>

@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+<style>
+    .success{
+        color: green;
+    }
+</style>
 <body>
     <form action="" method="post">
         {% csrf_token %}
@@ -15,6 +20,16 @@
         email     : <input type="email" name="email" placeholder="Email" id=""><br>
         <button type="submit">SUBMIT</button>     
     </form>
-
+ <br><br>
+    <button><a href="/">Home</a></button>
+ <!-- This is Messages Framework -->
+ 
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                 <h4 class="{{message.tags}}">{{message}}</h4>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

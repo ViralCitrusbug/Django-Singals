@@ -54,6 +54,8 @@ class login(View):
 def Prof(sender , instance , created , **kwargs):
     if created:
         prof = Profile.objects.create(user = instance)
+        print(instance,created,kwargs,sender)
+
 
 def Msgs(request):
     messages.info(request , "This is info messages")

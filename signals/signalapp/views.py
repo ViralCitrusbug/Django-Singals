@@ -17,13 +17,26 @@ from django.views.generic.base import TemplateView
 
 
 ## SIGNAL
-
 my_signal = Signal(providing_args= ['name'])
+
+## SIGNAL FUNCTION
+@receiver(post_save , sender = User )
+def Prof(sender , instance , created , **kwargs):
+    if created:
+        prof = Profile.objects.create(user = instance)
+        prof.save()
+        print(instance,created,kwargs,sender)
+
+
 
 def home(request):
     return render(request , "home.html")
 
-
+def Msgs(request):
+    messages.info(request , "This is info messages")
+    messages.success(request , "This is success messages")
+    messages.warning(request , "This is warning messages")
+    return render(request , 'msgs.html')
 
 ## FUNCTION BASED VIEW
 
@@ -78,20 +91,6 @@ class Profile_detail(DetailView):
         context['AllProfiles'] = self.model.objects.all()
         return context
 
-#3 SIGNAL FUNCTION
-@receiver(post_save , sender = User )
-def Prof(sender , instance , created , **kwargs):
-    if created:
-        prof = Profile.objects.create(user = instance)
-        prof.save()
-        print(instance,created,kwargs,sender)
-
-
-def Msgs(request):
-    messages.info(request , "This is info messages")
-    messages.success(request , "This is success messages")
-    messages.warning(request , "This is warning messages")
-    return render(request , 'msgs.html')
 
 ## CREATE VIEW
 
@@ -101,6 +100,5 @@ class AddProduct(CreateView):
     template_name = 'signalapp/AddProduct.html'
     success_url = '/thank'
     
-    
-class Thankyou(TemplateView):
-    template_name = "signalapp/thank.html"
+    class Thankyou(TemplateView):
+        template_name = "signalapp/thank.html"

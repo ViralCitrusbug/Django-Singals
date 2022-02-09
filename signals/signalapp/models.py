@@ -10,7 +10,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self) :
-        return self.id
+        return self.user.first_name
 
 class Post(models.Model):
     post_user = models.CharField(max_length=120 , default="")
@@ -30,7 +30,6 @@ class products(models.Model):
     name = models.CharField(max_length=100)
     cat = models.CharField(max_length=10)
     price = models.CharField(max_length=10)
-
 
     def __str__(self) -> str:
         return self.name

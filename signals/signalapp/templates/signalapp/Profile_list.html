@@ -8,11 +8,13 @@
 </head>
 <body>
     <h1>Profile List</h1>
-    {% for i in prof %}
+    <h1>
+        {% for i in prof %}
         <li>
-            <b><a href="profile/{{i.id}}">{{i.user.first_name}}</a></b> <br>
+            <b><a href="{{i.id}}">{{i.user.first_name}}</a></b> <br>
         </li>
     {% endfor %}
+    </h1>
     
     <button><a href="/">home</a></button>
 </body>

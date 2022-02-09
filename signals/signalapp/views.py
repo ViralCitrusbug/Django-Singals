@@ -1,8 +1,4 @@
-from dataclasses import fields
-from msilib.schema import SelfReg
-from pyexpat import model
-from venv import create
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import  render ,redirect
 from django.contrib.auth.models import User
 from django.dispatch import Signal, receiver
 from django.db.models.signals import post_save
@@ -10,7 +6,7 @@ from signalapp.models import Profile,products
 from django.contrib import messages
 from django.views import View
 from django.views.generic import ListView , DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView ,UpdateView , DeleteView
 from django.views.generic.base import TemplateView
 
 # Create your views here.
@@ -32,7 +28,7 @@ def Prof(sender , instance , created , **kwargs):
 def home(request):
     return render(request , "home.html")
 
-def Msgs(request):
+def msgs(request):
     messages.info(request , "This is info messages")
     messages.success(request , "This is success messages")
     messages.warning(request , "This is warning messages")
@@ -48,13 +44,14 @@ def Msgs(request):
 #         Email = request.POST.get("email")
 #         user = User.objects.create(first_name = fisrtName , last_name = lastName , username = userName , email = Email)
 #         user.save()
+#         return redirect("/")
 #         print(request.POST)
 #     return render(request , 'login.html')
 
 
 ## CLASS BASED VIEW
 
-class login(View):
+class Login(View):
     def get(self , request):
         return render(request , "login.html")
     def post(self ,request):
@@ -70,18 +67,22 @@ class login(View):
 
 ##  LIST VIEW   
 
-class user_list(ListView):
+class UserList(ListView):
     model = User
     
-class Profile_list(ListView):
+class ProfileList(ListView):
     model = Profile
     context_object_name = "prof"
+
+class ProductList(ListView):
+    model = products
+    context_object_name = "prod"
 
     
 
 ## DETAIL VIEW  
 
-class Profile_detail(DetailView):
+class ProfileDetail(DetailView):
     model = Profile
     context_object_name = "prof"
     template_name = 'signalapp/Profile.html'
@@ -89,6 +90,16 @@ class Profile_detail(DetailView):
     def get_context_data(self, *args ,**kwargs) :
         context =  super().get_context_data(*args , **kwargs)
         context['AllProfiles'] = self.model.objects.all()
+        return context
+
+class ProductDetail(DetailView):
+    model = products
+    context_object_name = "prod"
+    template_name = 'signalapp/Productview.html'
+   
+    def get_context_data(self, *args ,**kwargs) :
+        context =  super().get_context_data(*args , **kwargs)
+        context['AllProduct'] = self.model.objects.all()
         return context
 
 
@@ -100,5 +111,23 @@ class AddProduct(CreateView):
     template_name = 'signalapp/AddProduct.html'
     success_url = '/thank'
     
-    class Thankyou(TemplateView):
-        template_name = "signalapp/thank.html"
+class Thankyou(TemplateView):
+    template_name = "signalapp/thank.html"
+
+
+## UPDATE VIEW
+
+class ProductUpdate(UpdateView):
+    model = products
+    fields = ['name' , 'price', 'cat']
+    template_name = 'signalapp/UpdateProduct.html'
+    success_url = '/thankforupdate'
+
+class Thankforupdate(TemplateView):
+    template_name = "signalapp/thankforupdate.html"
+
+## DELETE VIEW 
+
+class DeletePorduct(DeleteView):
+    model = products
+    success_url = "/Addproduct"

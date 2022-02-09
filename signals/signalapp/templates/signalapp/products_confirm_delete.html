@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AddProduct</title>
+    <title>Delete</title>
 </head>
 <body>
-    <h1>Add Product</h1>
+    <h1>Deleting your Product</h1>
+
+    <h3>Are you sure.. ? You Want to Delete..</h3>
     <form action="" method="post">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">submit</button>
-    </form><br><br><br>
-    <button><a href="/">home</a></button>
-
+        <button type="submit">Delete</button>
+    </form>
+    <button><a href="/Addproduct">cancel</a></button>
+    <button><a href="/">Home</a></button>
 </body>
 </html>

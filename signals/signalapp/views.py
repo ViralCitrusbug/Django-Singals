@@ -2,7 +2,7 @@ from django.shortcuts import  render ,redirect
 from django.contrib.auth.models import User
 from django.dispatch import Signal, receiver
 from django.db.models.signals import post_save
-from signalapp.models import Profile,products
+from signalapp.models import Profile,Product
 from django.contrib import messages
 from django.views import View
 from django.views.generic import ListView , DetailView
@@ -75,7 +75,7 @@ class ProfileList(ListView):
     context_object_name = "prof"
 
 class ProductList(ListView):
-    model = products
+    model = Product
     context_object_name = "prod"
 
     
@@ -93,7 +93,7 @@ class ProfileDetail(DetailView):
         return context
 
 class ProductDetail(DetailView):
-    model = products
+    model = Product
     context_object_name = "prod"
     template_name = 'signalapp/Productview.html'
    
@@ -106,7 +106,7 @@ class ProductDetail(DetailView):
 ## CREATE VIEW
 
 class AddProduct(CreateView):
-    model = products
+    model = Product
     fields = ['name' , 'price', 'cat']
     template_name = 'signalapp/AddProduct.html'
     success_url = '/thank'
@@ -118,7 +118,7 @@ class Thankyou(TemplateView):
 ## UPDATE VIEW
 
 class ProductUpdate(UpdateView):
-    model = products
+    model = Product
     fields = ['name' , 'price', 'cat']
     template_name = 'signalapp/UpdateProduct.html'
     success_url = '/thankforupdate'
@@ -129,5 +129,5 @@ class Thankforupdate(TemplateView):
 ## DELETE VIEW 
 
 class DeletePorduct(DeleteView):
-    model = products
+    model = Product
     success_url = "/Addproduct"

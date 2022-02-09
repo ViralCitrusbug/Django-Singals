@@ -26,7 +26,7 @@ post_save.connect(save_post , sender = Post)
 pre_save.connect(save_pre , sender = Post)
 
 
-class products(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=100)
     cat = models.CharField(max_length=10)
     price = models.CharField(max_length=10)
